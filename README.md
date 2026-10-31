@@ -25,3 +25,25 @@ Modelar una plataforma de cursos online (MOOC): instructores que dictan cursos, 
 ## Resultado
 
 ![Diagrama](captura.png)
+
+---
+
+## Normalización
+
+Se normaliza el documento `Evaluacion` con sus registros de `Pregunta`. En todas las tablas la PK va en la primera columna y las FK al final. Los datos son de ejemplo.
+
+**Forma 0.** Una sola tabla con todo junto. Hay celdas con listas: cada evaluacion puede tener varios registros de pregunta.
+
+![Forma 0](normalizacion/00-forma-0.png)
+
+**1FN.** Cada elemento de la lista pasa a su propia fila y la clave queda compuesta: (`id_evaluacion`, `id_pregunta`).
+
+![1FN](normalizacion/01-1fn.png)
+
+**2FN.** Los datos de evaluacion dependen solo de `id_evaluacion`, así que van a `Evaluacion`. `Pregunta` queda aparte con su propio id y la FK a `Evaluacion`.
+
+![2FN](normalizacion/02-2fn.png)
+
+**3FN.** Los datos de `Curso` y `Instructor` dependen de su propio identificador y no de la PK de evaluacion, así que pasan a tablas aparte. En el modelo final cada tabla usa su id propio.
+
+![3FN](normalizacion/03-3fn.png)
